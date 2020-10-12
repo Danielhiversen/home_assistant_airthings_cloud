@@ -7,7 +7,7 @@ import logging
 import aiohttp
 import async_timeout
 import voluptuous as vol
-from homeassistant.components.geo_location import PLATFORM_SCHEMA
+from homeassistant.components.sensor import PLATFORM_SCHEMA
 from homeassistant.const import (
     CONF_USERNAME,
     CONF_PASSWORD,
