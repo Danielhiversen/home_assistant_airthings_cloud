@@ -78,7 +78,7 @@ class Airthings(Entity):
     @property
     def name(self):
         """Return the name of the sensor."""
-        return f"{self._sensor[2]} {self._sensor[1]}"
+        return f"Airthings {self._sensor[2]} {self._sensor[1]}"
 
     @property
     def unique_id(self):
