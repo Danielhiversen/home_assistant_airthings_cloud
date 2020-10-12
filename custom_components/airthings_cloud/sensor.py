@@ -129,7 +129,7 @@ class AirthingsData:
         self._next_updated = now + datetime.timedelta(minutes=20)
         if self.access_token is None:
             await self.get_user_credentials()
-        data = await self.update_data()
+        await self.update_data()
 
     async def get_user_credentials(self):
         headers = {
@@ -163,7 +163,8 @@ class AirthingsData:
             with async_timeout.timeout(self._timeout):
                 headers["authorization"] = result["access_token"]
                 resp = await self._session.post(
-                    "https://accounts-api.airthings.com/v1/authorize?client_id=dashboard&redirect_uri=https%3A%2F%2Fdashboard.airthings.com",
+                    "https://accounts-api.airthings.com/v1/authorize?"
+                    "client_id=dashboard&redirect_uri=https%3A%2F%2Fdashboard.airthings.com",
                     data=json.dumps({"scope": ["dashboard"]}),
                     headers=headers,
                 )
@@ -182,7 +183,8 @@ class AirthingsData:
                 "content-type": "application/json",
             }
             data = (
-                '{"grant_type":"authorization_code","client_id":"dashboard","client_secret":"e333140d-4a85-4e3e-8cf2-bd0a6c710aaa","code":"'
+                '{"grant_type":"authorization_code","client_id":"dashboard",'
+                '"client_secret":"e333140d-4a85-4e3e-8cf2-bd0a6c710aaa","code":"'
                 + code
                 + '","redirect_uri":"https://dashboard.airthings.com"}'
             )
