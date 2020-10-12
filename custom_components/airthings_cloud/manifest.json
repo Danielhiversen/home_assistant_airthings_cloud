@@ -1,0 +1,8 @@
+{
+  "domain": "airthings_cloid",
+  "name": "Airthings cloud",
+  "documentation": "https://github.com/Danielhiversen/home_assistant_airthings_cloud",
+  "requirements": [],
+  "issue_tracker": "https://github.com/Danielhiversen/home_assistant_airthings_cloud/issues",
+  "codeowners": ["@danielhiversen"]
+}
