@@ -36,7 +36,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
 )
 
 SENSOR_TYPES = {
-    "radonshorttermavg": ["Bq/m3", None],
+    "radonshorttermavg": ["Bq/m³", None],
     "temp": [TEMP_CELSIUS, DEVICE_CLASS_TEMPERATURE],
     "humidity": [PERCENTAGE, DEVICE_CLASS_HUMIDITY],
     "pressure": [PRESSURE_MBAR, DEVICE_CLASS_PRESSURE],
