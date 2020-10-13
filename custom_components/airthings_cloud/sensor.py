@@ -122,7 +122,7 @@ class AirthingsData:
     async def update(self, _=None, force_update=False):
         now = datetime.datetime.utcnow()
         if (
-            now - self._next_updated < datetime.timedelta(seconds=0)
+            now - self._next_updated > datetime.timedelta(seconds=0)
             and not force_update
         ):
             return
@@ -243,13 +243,16 @@ class AirthingsData:
 
         for device in result.get("tiles", []):
             device_id = device.get("id")
-            for sensor in device.get("content", {}).get("currentSensorValues", []):
+            sensors = device.get("content", {}).get("currentSensorValues", [])
+            if not sensors:
+                continue
+            for sensor in sensors:
                 self.sensors[f'{device_id}_{sensor["type"].lower()}'] = (
                     sensor.get("value"),
                     sensor["type"].lower(),
                     device.get("content", {}).get("roomName", ""),
                 )
-            self.sensors[f'{device_id}_{sensor["type"].lower()}'] = (
+            self.sensors[f"{device_id}_battery"] = (
                 device.get("content", {}).get("batteryPercentage"),
                 "battery",
                 device.get("content", {}).get("roomName", ""),
