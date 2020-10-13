@@ -17,6 +17,7 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.entity import Entity
 from homeassistant.const import (
     TEMP_CELSIUS,
+    TEMP_FAHRENHEIT,
     DEVICE_CLASS_TEMPERATURE,
     PRESSURE_MBAR,
     DEVICE_CLASS_PRESSURE,
@@ -38,6 +39,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
 SENSOR_TYPES = {
     "radonshorttermavg": ["Bq/m³", None],
     "temp": [TEMP_CELSIUS, DEVICE_CLASS_TEMPERATURE],
+    "temp_f": [TEMP_FAHRENHEIT, DEVICE_CLASS_TEMPERATURE],
     "humidity": [PERCENTAGE, DEVICE_CLASS_HUMIDITY],
     "pressure": [PRESSURE_MBAR, DEVICE_CLASS_PRESSURE],
     "co2": [CONCENTRATION_PARTS_PER_MILLION, None],
@@ -247,9 +249,12 @@ class AirthingsData:
             if not sensors:
                 continue
             for sensor in sensors:
+                sensor_type = sensor["type"].lower()
+                if sensor_type == 'temp' and sensor.get('providedUnit') != 'c':
+                    sensor_type = 'temp_f'
                 self.sensors[f'{device_id}_{sensor["type"].lower()}'] = (
                     sensor.get("value"),
-                    sensor["type"].lower(),
+                    sensor_type,
                     device.get("content", {}).get("roomName", ""),
                 )
             self.sensors[f"{device_id}_battery"] = (
