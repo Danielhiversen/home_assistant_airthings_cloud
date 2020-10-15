@@ -61,7 +61,8 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
 
     dev = []
     for sensor_id, sensor in airthings_data.sensors.items():
-        dev.append(Airthings(sensor_id, sensor, airthings_data))
+        if sensor[1] in SENSOR_TYPES:
+            dev.append(Airthings(sensor_id, sensor, airthings_data))
 
     async_add_entities(dev)
 
