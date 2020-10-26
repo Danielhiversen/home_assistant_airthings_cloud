@@ -91,7 +91,11 @@ class Airthings(Entity):
     @property
     def device_state_attributes(self):
         """Return the state attributes of the sensor."""
-        return {'timestamp': datetime.datetime.fromisoformat(self._sensor[2].get("latestSample", ""))}
+        return {
+            "timestamp": datetime.datetime.fromisoformat(
+                self._sensor[2].get("latestSample", "")
+            )
+        }
 
     @property
     def state(self):
@@ -256,8 +260,8 @@ class AirthingsData:
                 continue
             for sensor in sensors:
                 sensor_type = sensor["type"].lower()
-                if sensor_type == 'temp' and sensor.get('providedUnit') != 'c':
-                    sensor_type = 'temp_f'
+                if sensor_type == "temp" and sensor.get("providedUnit") != "c":
+                    sensor_type = "temp_f"
                 self.sensors[f'{device_id}_{sensor["type"].lower()}'] = (
                     sensor.get("value"),
                     sensor_type,
