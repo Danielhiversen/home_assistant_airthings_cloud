@@ -245,14 +245,14 @@ class AirthingsData:
             return False
 
         for device in result.get("tiles", []):
-            device_id = device.get("id")
+            device_id = device.get("content", {}).get("serialNumber")
             sensors = device.get("content", {}).get("currentSensorValues", [])
             if not sensors:
                 continue
             for sensor in sensors:
                 sensor_type = sensor["type"].lower()
-                if sensor_type == 'temp' and sensor.get('providedUnit') != 'c':
-                    sensor_type = 'temp_f'
+                if sensor_type == "temp" and sensor.get("providedUnit") != "c":
+                    sensor_type = "temp_f"
                 self.sensors[f'{device_id}_{sensor["type"].lower()}'] = (
                     sensor.get("value"),
                     sensor_type,
