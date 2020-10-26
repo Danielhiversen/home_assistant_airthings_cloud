@@ -245,7 +245,7 @@ class AirthingsData:
             return False
 
         for device in result.get("tiles", []):
-            device_id = device.get("id")
+            device_id = device.get("content", {}).get("serialNumber")
             sensors = device.get("content", {}).get("currentSensorValues", [])
             if not sensors:
                 continue
