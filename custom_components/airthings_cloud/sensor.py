@@ -81,12 +81,21 @@ class Airthings(Entity):
     @property
     def name(self):
         """Return the name of the sensor."""
-        return f"Airthings {self._sensor[2]} {self._sensor[1]}"
+        return f'Airthings {self._sensor[2].get("roomName", "")} {self._sensor[1]}'
 
     @property
     def unique_id(self):
         """Return a unique ID."""
         return self._sensor_id
+
+    @property
+    def device_state_attributes(self):
+        """Return the state attributes of the sensor."""
+        return {
+            "timestamp": datetime.datetime.fromisoformat(
+                self._sensor[2].get("latestSample", "")
+            )
+        }
 
     @property
     def state(self):
@@ -256,11 +265,11 @@ class AirthingsData:
                 self.sensors[f'{device_id}_{sensor["type"].lower()}'] = (
                     sensor.get("value"),
                     sensor_type,
-                    device.get("content", {}).get("roomName", ""),
+                    device.get("content", {}),
                 )
             self.sensors[f"{device_id}_battery"] = (
                 device.get("content", {}).get("batteryPercentage"),
                 "battery",
-                device.get("content", {}).get("roomName", ""),
+                device.get("content", {}),
             )
         return True
