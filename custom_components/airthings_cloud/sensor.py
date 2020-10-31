@@ -127,18 +127,16 @@ class AirthingsData:
         self.access_token = None
 
         self._timeout = 10
-        self._next_updated = datetime.datetime.utcnow() - datetime.timedelta(hours=2)
+        self._updated_at = datetime.datetime.utcnow()
 
         self.sensors = {}
 
     async def update(self, _=None, force_update=False):
         now = datetime.datetime.utcnow()
-        if (
-            now - self._next_updated > datetime.timedelta(seconds=0)
-            and not force_update
-        ):
+        elapsed = now - self._updated_at
+        if elapsed > datetime.timedelta(minutes=20) and not force_update:
             return
-        self._next_updated = now + datetime.timedelta(minutes=20)
+        self._updated_at = now
         if self.access_token is None:
             await self.get_user_credentials()
         await self.update_data()
