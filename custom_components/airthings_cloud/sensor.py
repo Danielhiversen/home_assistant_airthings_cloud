@@ -134,7 +134,7 @@ class AirthingsData:
     async def update(self, _=None, force_update=False):
         now = datetime.datetime.utcnow()
         elapsed = now - self._updated_at
-        if elapsed > datetime.timedelta(minutes=20) and not force_update:
+        if elapsed < datetime.timedelta(minutes=20) and not force_update:
             return
         self._updated_at = now
         if self.access_token is None:
