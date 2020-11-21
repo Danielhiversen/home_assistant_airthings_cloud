@@ -3,6 +3,7 @@ import asyncio
 import datetime
 import json
 import logging
+import time
 
 import aiohttp
 import async_timeout
@@ -126,6 +127,7 @@ class AirthingsData:
         self._session = session
 
         self.access_token = None
+        self.access_token_expiration = None
 
         self._timeout = 10
         self._updated_at = datetime.datetime.utcnow()
@@ -214,6 +216,7 @@ class AirthingsData:
                 return False
             result = await resp.json()
             self.access_token = result["access_token"]
+            self.access_token_expiration = time.time() + int(result["expires_in"])
 
         except aiohttp.ClientError as err:
             _LOGGER.error("Error connecting to Airthings: %s ", err, exc_info=True)
@@ -223,7 +226,7 @@ class AirthingsData:
         return True
 
     async def update_data(self):
-        if self.access_token is None:
+        if self.access_token is None or time.time() >= (self.access_token_expiration-60):
             await self.get_user_credentials()
 
         headers = {
