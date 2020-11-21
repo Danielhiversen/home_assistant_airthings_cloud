@@ -38,6 +38,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
 
 SENSOR_TYPES = {
     "radonshorttermavg": ["Bq/m³", None],
+    "radonshorttermavg_pci": ["pCi/L", None],
     "temp": [TEMP_CELSIUS, DEVICE_CLASS_TEMPERATURE],
     "temp_f": [TEMP_FAHRENHEIT, DEVICE_CLASS_TEMPERATURE],
     "humidity": [PERCENTAGE, DEVICE_CLASS_HUMIDITY],
@@ -260,6 +261,8 @@ class AirthingsData:
                 sensor_type = sensor["type"].lower()
                 if sensor_type == "temp" and sensor.get("providedUnit") != "c":
                     sensor_type = "temp_f"
+                if sensor_type == "radonshorttermavg" and sensor.get("providedUnit") == "pci":
+                    sensor_type = "radonshorttermavg_pci"
                 self.sensors[f'{device_id}_{sensor["type"].lower()}'] = (
                     sensor.get("value"),
                     sensor_type,
