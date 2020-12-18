@@ -11,7 +11,7 @@ Custom component for using [Airthings](https://www.airthings.com//) sensors in H
 
 
 ## Install
-Use [hacs](https://hacs.xyz/) or copy the files to the custom_components folder in Home Assistant config.
+Use [hacs](https://hacs.xyz/docs/faq/custom_repositories) or copy the files to the custom_components folder in Home Assistant config.
 
 ## Configuration 
 In configuration.yaml:
