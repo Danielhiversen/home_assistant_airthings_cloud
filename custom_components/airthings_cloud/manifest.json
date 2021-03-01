@@ -4,5 +4,6 @@
   "documentation": "https://github.com/Danielhiversen/home_assistant_airthings_cloud",
   "requirements": [],
   "issue_tracker": "https://github.com/Danielhiversen/home_assistant_airthings_cloud/issues",
+  "version": "0.1.3",
   "codeowners": ["@danielhiversen"]
 }

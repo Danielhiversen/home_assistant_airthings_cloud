@@ -226,7 +226,9 @@ class AirthingsData:
         return True
 
     async def update_data(self):
-        if self.access_token is None or time.time() >= (self.access_token_expiration-60):
+        if self.access_token is None or time.time() >= (
+            self.access_token_expiration - 60
+        ):
             await self.get_user_credentials()
 
         headers = {
@@ -264,7 +266,10 @@ class AirthingsData:
                 sensor_type = sensor["type"].lower()
                 if sensor_type == "temp" and sensor.get("providedUnit") != "c":
                     sensor_type = "temp_f"
-                if sensor_type == "radonshorttermavg" and sensor.get("providedUnit") == "pci":
+                if (
+                    sensor_type == "radonshorttermavg"
+                    and sensor.get("providedUnit") == "pci"
+                ):
                     sensor_type = "radonshorttermavg_pci"
                 self.sensors[f'{device_id}_{sensor["type"].lower()}'] = (
                     sensor.get("value"),
