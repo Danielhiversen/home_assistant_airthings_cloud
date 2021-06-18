@@ -240,7 +240,7 @@ class AirthingsData:
         try:
             with async_timeout.timeout(self._timeout):
                 resp = await self._session.get(
-                    "https://web-api.airthin.gs/v1/dashboard",
+                    "https://web-api.airthin.gs/v1/dashboards",
                     headers=headers,
                 )
             if resp.status != 200:
@@ -257,7 +257,7 @@ class AirthingsData:
         except asyncio.TimeoutError:
             return False
 
-        for device in result.get("tiles", []):
+        for device in result.get("currentDashboard", {}).get("tiles", []):
             device_id = device.get("content", {}).get("serialNumber")
             sensors = device.get("content", {}).get("currentSensorValues", [])
             if not sensors:
