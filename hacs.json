@@ -1,7 +1,14 @@
 {
+    "domain": "airthings_cloud",
     "name": "Airthings cloud",
     "domains": [
         "sensor"
     ],
     "iot_class": "cloud_polling",
+    "documentation": "https://github.com/Danielhiversen/home_assistant_airthings_cloud",
+    "requirements": [],
+    "codeowners": ["@danielhiversen"],
+    "issue_tracker": "https://github.com/Danielhiversen/home_assistant_airthings_cloud/issues",
+    "version": "0.0.1",
+    "config_flow": false
 }
