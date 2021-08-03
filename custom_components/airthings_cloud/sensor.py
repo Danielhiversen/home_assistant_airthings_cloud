@@ -47,6 +47,8 @@ SENSOR_TYPES = {
     "co2": [CONCENTRATION_PARTS_PER_MILLION, None],
     "voc": [CONCENTRATION_PARTS_PER_BILLION, None],
     "battery": [PERCENTAGE, DEVICE_CLASS_BATTERY],
+    "pm1": ["µg/m³", None],
+    "pm25": ["µg/m³", None],
 }
 
 
