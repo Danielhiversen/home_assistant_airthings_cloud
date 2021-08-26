@@ -28,6 +28,7 @@ from homeassistant.const import (
     CONCENTRATION_PARTS_PER_BILLION,
     DEVICE_CLASS_BATTERY,
 )
+from homeassistant.components.sensor import STATE_CLASS_MEASUREMENT
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -73,6 +74,8 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
 
 class Airthings(Entity):
     """Representation of an weather sensor."""
+
+    attr_state_class = STATE_CLASS_MEASUREMENT
 
     def __init__(self, sensor_id, sensor, airthings_data):
         """Initialize the sensor."""
