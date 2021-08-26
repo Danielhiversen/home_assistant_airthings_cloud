@@ -29,7 +29,7 @@ from homeassistant.const import (
     DEVICE_CLASS_BATTERY,
 )
 from homeassistant.components.sensor import STATE_CLASS_MEASUREMENT
-    
+ 
 _LOGGER = logging.getLogger(__name__)
 
 DOMAIN = "airthings_cloud"
